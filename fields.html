@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>Fields — SmartSoil</title><link rel="stylesheet" href="style.css"/></head>
+<body class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="logo">🌱</div><div class="brand-text"><h3>SmartSoil</h3><div class="small muted">Fields</div></div></div>
+    <nav class="nav"><ul><li onclick="navTo('dashboard')">Overview</li><li class="active" onclick="navTo('fields')">Fields</li><li onclick="navTo('alerts')">Alerts</li><li onclick="navTo('reports')">Reports</li><li onclick="navTo('settings')">Settings</li></ul></nav>
+    <div style="margin-top:auto"><button class="btn btn-ghost" onclick="logoutUser()">Logout</button></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><h2>Your Fields</h2><div class="small muted">Manage plots & sensors</div></header>
+    <section class="container">
+      <div class="card"><h3>North Plot</h3><p class="small muted">Sensors: A1, A2 · Last update: —</p></div>
+      <div style="height:12px"></div>
+      <div class="card"><h3>South Orchard</h3><p class="small muted">Sensors: B1 · Last update: —</p></div>
+    </section>
+  </main>
+<script src="script.js"></script>
+</body>
+</html>

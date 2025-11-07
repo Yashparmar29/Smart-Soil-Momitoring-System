@@ -1,0 +1,63 @@
+:root{
+  --dark-bg-1: #04120a;
+  --dark-bg-2: #02150c;
+  --accent: #00d07a;
+  --accent-2: #21e08a;
+  --muted: #9fb8a7;
+  --card-bg: rgba(255,255,255,0.03);
+  --glass-border: rgba(255,255,255,0.04);
+  --light-bg: #f3faf6;
+  --light-panel: rgba(255,255,255,0.9);
+  --light-text: #08321b;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%; margin:0; font-family:Inter, 'Segoe UI', Roboto, Arial; -webkit-font-smoothing:antialiased;}
+
+/* ------------------ Shared utils ------------------ */
+.container{max-width:1100px; margin:0 auto; padding:20px;}
+.topbar, .footer{display:flex; justify-content:space-between; align-items:center; padding:12px 20px;}
+
+.btn{padding:8px 12px; border-radius:8px; cursor:pointer; border:none;}
+.small{font-size:13px; color:var(--muted)}
+
+/* ------------------ Light Auth Pages ------------------ */
+.auth-page{min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg,var(--light-bg),#eaf7ee); color:var(--light-text);}
+.auth-card{width:420px; background:var(--light-panel); padding:28px; border-radius:12px; box-shadow:0 12px 40px rgba(8,50,27,0.06); text-align:center;}
+.auth-card h1{margin:6px 0 6px 0}
+.auth-card input{width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid rgba(0,0,0,0.06);}
+.auth-primary{background:linear-gradient(90deg,var(--accent-2),var(--accent)); color:white; width:100%; margin-top:8px; font-weight:600;}
+
+/* ------------------ Dark Dashboard Pages ------------------ */
+.app{display:flex; min-height:100vh; background: linear-gradient(180deg,var(--dark-bg-1),var(--dark-bg-2)); color:#eaf6ef;}
+.sidebar{width:260px; padding:24px; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015)); border-right:1px solid rgba(255,255,255,0.02);}
+.brand{display:flex; gap:12px; align-items:center; margin-bottom:16px}
+.brand .logo{font-size:34px; filter: drop-shadow(0 4px 8px rgba(0,208,122,0.16))}
+.nav ul{list-style:none; padding:8px 0; margin:0}
+.nav li{padding:12px 14px; border-radius:10px; color:var(--muted); margin-bottom:8px; cursor:pointer; transition:all .18s ease;}
+.nav li.active{ background: linear-gradient(90deg, rgba(0,208,122,0.12), rgba(33,224,138,0.06)); color: #e9fff6; transform:translateX(4px)}
+.main{flex:1; padding:22px 28px}
+.card{background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:12px; padding:14px; border:1px solid var(--glass-border); box-shadow:0 8px 30px rgba(2,10,6,0.55); backdrop-filter: blur(6px);}
+
+/* grid */
+.grid{display:grid; grid-template-columns: 1fr 300px; gap:18px;}
+.card-large{display:flex; gap:18px; align-items:center; min-height:200px;}
+.circular-chart{width:130px; height:130px;}
+.circle-bg{fill:none; stroke: rgba(255,255,255,0.06); stroke-width:3.5}
+.circle{fill:none; stroke-width:3.5; stroke-linecap:round; transform: rotate(-90deg); transform-origin:center; filter: drop-shadow(0 6px 8px rgba(0,208,122,0.18));}
+.chart-text{font-size:14px; text-anchor:middle; fill:#eaf6ef; font-weight:600}
+.meta{display:flex; gap:12px; margin-left:8px}
+.center{display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:120px}
+.stat{font-size:32px; font-weight:700; color: #e9fff6}
+.lower-grid{display:grid; grid-template-columns: 1fr 320px; gap:18px; margin-top:12px;}
+
+/* responsive */
+@media (max-width:1000px){
+  .grid{grid-template-columns: 1fr;}
+  .lower-grid{grid-template-columns: 1fr;}
+  .sidebar{display:none;}
+}
+
+/* little helpers */
+.muted{color:var(--muted);}
+.center-text{text-align:center;}
