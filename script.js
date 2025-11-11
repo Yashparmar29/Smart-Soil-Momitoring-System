@@ -1,12 +1,16 @@
 // Shared script for SmartSoil pages
 (function(){
-  // Simple auth: store single user in localStorage for demo
+  // Auth: store multiple users in localStorage for demo
   window.registerUser = function(){
     const u = document.getElementById('reg-username') && document.getElementById('reg-username').value.trim();
     const e = document.getElementById('reg-email') && document.getElementById('reg-email').value.trim();
     const p = document.getElementById('reg-password') && document.getElementById('reg-password').value;
     if(!u || !e || !p){ alert('Please fill all fields'); return; }
-    localStorage.setItem('smartsoil_user', JSON.stringify({username:u,email:e,password:p}));
+    const users = JSON.parse(localStorage.getItem('smartsoil_users') || '[]');
+    if(users.find(user => user.username === u)){ alert('Username already exists'); return; }
+    const role = u === 'admin' ? 'admin' : 'user'; // Demo: 'admin' username gets admin role
+    users.push({username:u, email:e, password:p, role:role});
+    localStorage.setItem('smartsoil_users', JSON.stringify(users));
     alert('Account created — please sign in');
     window.location.href = 'index.html';
   };
@@ -14,9 +18,10 @@
   window.loginUser = function(){
     const u = document.getElementById('login-username') && document.getElementById('login-username').value.trim();
     const p = document.getElementById('login-password') && document.getElementById('login-password').value;
-    const stored = JSON.parse(localStorage.getItem('smartsoil_user')||'null');
-    if(stored && stored.username === u && stored.password === p){
-      localStorage.setItem('loggedInUser', stored.username);
+    const users = JSON.parse(localStorage.getItem('smartsoil_users') || '[]');
+    const user = users.find(user => user.username === u && user.password === p);
+    if(user){
+      localStorage.setItem('loggedInUser', JSON.stringify(user));
       window.location.href = 'dashboard.html';
     } else {
       alert('Invalid credentials — for demo register a user first.');
@@ -30,25 +35,46 @@
 
   window.navTo = function(page){
     // simple client-side navigation: redirect to corresponding file
-    const pages = {dashboard:'dashboard.html', fields:'fields.html', alerts:'alerts.html', reports:'reports.html', settings:'settings.html'};
+    const pages = {dashboard:'dashboard.html', fields:'fields.html', alerts:'alerts.html', reports:'reports.html', settings:'settings.html', admin:'admin.html'};
     if(pages[page]) window.location.href = pages[page];
+  };
+
+  // Helper: get current logged in user
+  window.getCurrentUser = function(){
+    return JSON.parse(localStorage.getItem('loggedInUser') || 'null');
+  };
+
+  // Helper: check if user is admin
+  window.isAdmin = function(){
+    const user = getCurrentUser();
+    return user && user.role === 'admin';
   };
 
   // Demo data injection for dashboard and others
   document.addEventListener('DOMContentLoaded', ()=>{
     // fill profile
-    const stored = JSON.parse(localStorage.getItem('smartsoil_user')||'null');
-    if(stored){
+    const user = getCurrentUser();
+    if(user){
       const nameEl = document.getElementById('profile-name');
       const emailEl = document.getElementById('profile-email');
-      if(nameEl) nameEl.textContent = stored.username;
-      if(emailEl) emailEl.textContent = stored.email;
+      if(nameEl) nameEl.textContent = user.username;
+      if(emailEl) emailEl.textContent = user.email;
     }
 
-    const logged = localStorage.getItem('loggedInUser') || (stored && stored.username);
-    if(logged){
+    if(user){
       const userEls = document.querySelectorAll('#user-name');
-      userEls.forEach(el=> el.textContent = logged);
+      userEls.forEach(el=> el.textContent = user.username);
+    }
+
+    // Show admin link if admin
+    if(isAdmin()){
+      const navs = document.querySelectorAll('.nav ul');
+      navs.forEach(nav => {
+        const adminLi = document.createElement('li');
+        adminLi.onclick = () => navTo('admin');
+        adminLi.textContent = 'Admin';
+        nav.appendChild(adminLi);
+      });
     }
 
     // If on dashboard, populate demo stats

@@ -58,6 +58,81 @@ html,body{height:100%; margin:0; font-family:Inter, 'Segoe UI', Roboto, Arial; -
   .sidebar{display:none;}
 }
 
+/* Admin Panel Styles */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+.admin-table th, .admin-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.admin-table th {
+  background: rgba(255,255,255,0.05);
+  font-weight: 600;
+  color: #e9fff6;
+}
+
+.admin-table td {
+  color: var(--muted);
+}
+
+.btn-small {
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.btn-danger {
+  background: #ff4757;
+  color: white;
+}
+
+.admin-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.admin-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  transition: all 0.2s ease;
+}
+
+.admin-link:hover {
+  background: rgba(0,208,122,0.1);
+  color: #e9fff6;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
 /* little helpers */
 .muted{color:var(--muted);}
 .center-text{text-align:center;}
